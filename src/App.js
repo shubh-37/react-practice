@@ -12,39 +12,38 @@ export default function App() {
     "😲": "shocked",
     "🤑": "money-time"
   }
+ 
+ var emojiArr = Object.keys(emojiDict); 
   
-  var arr = ["shubh","mohit","prateek","dhwani","sidhu","shambi","mayo","aryan"];
-  // var [meaning, setMeaning] = useState("");
-  // function inputHandler(event){
-  //    var input = event.target.value;
-  //    meaning = emojiDict[input];
-  //    setMeaning(meaning);
-  // }
-  function getBg(index){
-    if(index%2 == 0){
-      return "white";
-    }else{
-      return "gray";
-    }
+  var [meaning, setMeaning] = useState("");
+  function inputHandler(event){
+     var input = event.target.value;
+     meaning = emojiDict[input];
+     if(meaning === undefined){
+       meaning = "we don't have this in our database";
+     }
+     setMeaning(meaning);
   }
   function clickHandler(item){
-    console.log(item);
+    meaning = emojiDict[item];
+    setMeaning(meaning);
   }
   return (
     <div className="App">
       <h1>Emoji Interpreter</h1>
-      {/* <input onChange = {inputHandler}></input>
-      <div>{meaning}</div> */}
-      <ul>
+      <input onChange = {inputHandler}></input>
+      <div>{meaning}</div>
+      <h3> Emoji's we Know</h3>
+      <div>
         {
-          arr.map((item,index)=>{
+          emojiArr.map((item)=>{
             return(
-            <li key= {item} style = {{backgroundColor: getBg(index)}} onClick = {()=>clickHandler(item)}>{item}</li>
+            <span key= {item} style= {{padding: "0.5rem", fontSize: "1.5rem", cursor: "pointer"}} onClick = {()=>clickHandler(item)}>{item}</span>
             );
             
           })
         }
-      </ul>
+      </div>
     </div>
   );
 }
